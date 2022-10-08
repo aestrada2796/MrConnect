@@ -14,5 +14,5 @@
 ### Vendor
 
 ```bash
-composer require aestrada2796/mrconnect
+composer require aestrada2796/mrconnect dev-master
 ```
