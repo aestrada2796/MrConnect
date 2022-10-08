@@ -14,9 +14,9 @@ class MrConnectServiceProvider extends SP
      */
     public function boot(): void
     {
-        $this->loadConfig();
-        $this->loadRoutes();
-        $this->loadMigrations();
+//        $this->loadConfig();
+//        $this->loadRoutes();
+//        $this->loadMigrations();
     }
 
     private function loadConfig(): void
@@ -31,13 +31,13 @@ class MrConnectServiceProvider extends SP
 
     private function loadRoutes(): void
     {
-        $this->loadRoutesFrom(__DIR__ . '/../routes/whatsapp.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/mrconnect.php');
 
         $this->publishes(
             [
                 __DIR__ . '/../routes' => base_path('routes'),
             ],
-            'whatsapp-routes'
+            'mrconnect-routes'
         );
     }
 
@@ -49,7 +49,7 @@ class MrConnectServiceProvider extends SP
             [
                 __DIR__ . '/../database/migrations' => base_path('database/migrations'),
             ],
-            'whatsapp-migrations'
+            'mrconnect-migrations'
         );
     }
 
@@ -61,7 +61,7 @@ class MrConnectServiceProvider extends SP
             [
                 __DIR__ . '/../resources/views' => resource_path('views/vendor/package-name'),
             ],
-            'whatsapp-views'
+            'mrconnect-views'
         );
     }
 
@@ -73,7 +73,7 @@ class MrConnectServiceProvider extends SP
             [
                 __DIR__ . '/../resources/lang' => resource_path('lang'),
             ],
-            'whatsapp-lang'
+            'mrconnect-lang'
         );
     }
 
@@ -85,7 +85,7 @@ class MrConnectServiceProvider extends SP
             [
                 __DIR__ . '/../database/factories' => base_path('database/factories'),
             ],
-            'whatsapp-factories'
+            'mrconnect-factories'
         );
     }
 
