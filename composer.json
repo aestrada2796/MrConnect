@@ -1,56 +1,59 @@
 {
-    "name": "aestrada2796/mrconnect",
-    "description": "",
-    "keywords": [
-        "MultiRumbo",
-        "Multirumbo Corp",
-        "Integration API"
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Adrian Estrada",
-            "email": "aestrada2796@gmail.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^8.0",
-        "laravel/framework": "^9.34"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "MrConnect\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "MrConnect\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "1.0.1": "1.0.1"
-        },
-        "laravel": {
-            "providers": [
-                "MrConnect\\MrConnectServiceProvider"
-            ]
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "psalm": "vendor/bin/psalm"
-    },
-    "config": {
-        "allow-plugins": {
-            "composer/package-versions-deprecated": true
-        }
+  "name": "aestrada2796/mrconnect",
+  "type": "library",
+  "description": "Integracíón con el sistema de API de MultiRumbo Corp",
+  "keywords": [
+    "MultiRumbo",
+    "Multirumbo Corp",
+    "Integration API"
+  ],
+  "homepage": "https://github.com/aestrada2796/mrconnect",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Adrian Estrada",
+      "email": "aestrada2796@gmail.com",
+      "homepage": "https://www.adriandeveloper.com",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": "^8.0",
+    "laravel/framework": "^9.34"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "MrConnect\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MrConnect\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "1.0.0": "1.0.0"
+    },
+    "laravel": {
+      "providers": [
+        "MrConnect\\MrConnectServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "psalm": "vendor/bin/psalm"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true
+    }
+  }
 }
