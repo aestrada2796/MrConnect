@@ -42,10 +42,6 @@
       "dev-develop": "1.*-dev",
       "latest": "1.0.0-dev"
     },
-    "alias": {
-      "dev-develop": "1.*-dev",
-      "latest": "1.0.0-dev"
-    },
     "laravel": {
       "providers": [
         "MrConnect\\MrConnectServiceProvider"
