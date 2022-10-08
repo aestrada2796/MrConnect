@@ -39,7 +39,7 @@
   },
   "extra": {
     "branch-alias": {
-      "1.0.0": "1.0.0"
+      "master": "master"
     },
     "laravel": {
       "providers": [
