@@ -39,9 +39,6 @@
   },
   "extra": {
     "branch-alias": {
-      "alpha-develop": "0.*-alpha",
-      "beta-develop": "0.*-beta",
-      "rc-develop": "0.*-rc",
       "dev-develop": "0.*-dev"
     },
     "laravel": {
