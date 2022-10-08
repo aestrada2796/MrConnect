@@ -38,9 +38,6 @@
     }
   },
   "extra": {
-    "branch-alias": {
-      "master-dev": "master"
-    },
     "laravel": {
       "providers": [
         "MrConnect\\MrConnectServiceProvider"
