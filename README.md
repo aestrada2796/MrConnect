@@ -25,6 +25,18 @@ composer require aestrada2796/mrconnect
 | Test       | https://www.test.multirumbo.com |
 | Production | https://www.multirumbo.com      |
 
+### Importante
+
+- Debe agregar a su archivo .env las siguiente variables:
+
+```php 
+API_USER='user@test.com'
+API_PASS='user@test.com'
+API_ROUTE=
+
+El `API_ROUTE` es solo requerido si esta en entorno de Test 
+```
+
 ### Endpoints
 
 - login
@@ -45,7 +57,8 @@ Query::make("login")->login();
 - En `make` ponemos el endpoint que se va a consultar Ej: `Query::make("topup")`
 - Tenemos dos funciones para la consulta a los endpoint de GraphQL
 
-1. Si tenemos un dominio avanzado de esta tecnología simplemente en la función `->query` le pasamos la consulta, se pueden agregar tanta consultas como sean necesarias.
+1. Si tenemos un dominio avanzado de esta tecnología simplemente en la función `->query` le pasamos la consulta, se
+   pueden agregar tanta consultas como sean necesarias.
 
 ```php
 Query::make("")
@@ -53,8 +66,8 @@ Query::make("")
     ->send();
 ```
 
-2. Este es más sencillo donde pasamos a la función `->function` los paramentros necesarios, se pueden agregar tanta funciones como sean necesarias
-
+2. Este es más sencillo donde pasamos a la función `->function` los paramentros necesarios, se pueden agregar tanta
+   funciones como sean necesarias
 
 | Parámetro | Significado                       | Requerido |
 |-----------|-----------------------------------|-----------|
