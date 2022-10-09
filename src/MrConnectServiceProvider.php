@@ -14,8 +14,8 @@ class MrConnectServiceProvider extends SP
      */
     public function boot(): void
     {
-        $this->loadConfig();
-        $this->loadRoutes();
+//        $this->loadConfig();
+//        $this->loadRoutes();
 //        $this->loadMigrations();
     }
 
