@@ -14,8 +14,8 @@ class MrConnectServiceProvider extends SP
      */
     public function boot(): void
     {
-//        $this->loadConfig();
-//        $this->loadRoutes();
+        $this->loadConfig();
+        $this->loadRoutes();
 //        $this->loadMigrations();
     }
 
@@ -25,7 +25,7 @@ class MrConnectServiceProvider extends SP
             [
                 __DIR__ . '/../config/mrconnect.php' => config_path('mrconnect.php'),
             ],
-            'whatsapp-config'
+            'mrconnect-config'
         );
     }
 
