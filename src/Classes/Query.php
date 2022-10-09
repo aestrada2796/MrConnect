@@ -25,6 +25,18 @@ class Query extends Base
 
     /**
      * @autor Adrian Estrada
+     * @param $name
+     * @param $var
+     * @return $this
+     */
+    public function name($name, $var): static
+    {
+        $this->query = sprintf($this->query, $name . (json_encode($var)));
+        return $this;
+    }
+
+    /**
+     * @autor Adrian Estrada
      * @return array[]|mixed|void|null
      */
     public function send()
