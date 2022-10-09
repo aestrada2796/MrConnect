@@ -17,11 +17,22 @@ class Base
 
     /**
      * @autor Adrian Estrada
+     * @param $var
+     * @return $this
+     */
+    public function setVariables($var): static
+    {
+        $this->var = $var;
+        return $this;
+    }
+
+    /**
+     * @autor Adrian Estrada
      */
     protected function sendRequest()
     {
         if (!cache()->has('token')) {
-            return $this->login();
+            return $this->sendLogin();
         }
 
         $token = cache('token');
@@ -76,13 +87,13 @@ class Base
         $response = curl_exec($curl);
 
         curl_close($curl);
-        return json_decode($response, true);
+        return json_decode($response);
     }
 
     /**
      * @autor Adrian Estrada
      */
-    public function login()
+    public function sendLogin()
     {
         $error = $this->checkConfig();
         if (!empty($error)) {
@@ -126,12 +137,13 @@ class Base
             if (isset($login["data"]["login"])) {
                 if ($login["data"]["login"] != "Incorrect user or password") {
                     cache(["token" => $login["data"]["login"]]);
+                    return cache('token');
                 } else {
                     cache()->forget('token');
-                    return $login;
                 }
             }
         }
+        return $login;
     }
 
     /**
@@ -168,5 +180,4 @@ class Base
 
         return $response ? $error : null;
     }
-
 }
