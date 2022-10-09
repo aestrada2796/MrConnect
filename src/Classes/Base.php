@@ -32,7 +32,7 @@ class Base
     protected function sendRequest()
     {
         if (!cache()->has('token')) {
-            return $this->sendLogin();
+            return $this->sendLogin('sendRequest');
         }
 
         $token = cache('token');
@@ -85,15 +85,21 @@ class Base
         ));
 
         $response = curl_exec($curl);
-
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+
+        if ($httpcode == 401) {
+            cache()->forget('token');
+            return $this->sendLogin('sendRequest');
+        }
+
         return json_decode($response);
     }
 
     /**
      * @autor Adrian Estrada
      */
-    public function sendLogin()
+    public function sendLogin($function = null)
     {
         $error = $this->checkConfig();
         if (!empty($error)) {
@@ -130,13 +136,15 @@ class Base
         $response = curl_exec($curl);
         curl_close($curl);
 
+        $login = json_decode($response);
 
-        $login = json_decode($response, true);
-
-        if (isset($login["data"])) {
-            if (isset($login["data"]["login"])) {
-                if ($login["data"]["login"] != "Incorrect user or password") {
-                    cache(["token" => $login["data"]["login"]]);
+        if (isset($login->data)) {
+            if (isset($login->data->login)) {
+                if ($login->data->login != "Incorrect user or password") {
+                    cache(["token" => $login->data->login]);
+                    if (!empty($function)) {
+                        return $this->$function();
+                    }
                     return cache('token');
                 } else {
                     cache()->forget('token');
