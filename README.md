@@ -8,7 +8,7 @@
 
 [<img alt="Deployed with FTP Deploy Action" src="https://img.shields.io/badge/Version-0.0.1-brightgreen?style=flat">](https://plenus.tecsodevs.com)
 [<img alt="Deployed with FTP Deploy Action" src="https://img.shields.io/badge/PHP-8.*-brightgreen?style=flat&logo=php">](https://www.php.net)
-[<img alt="Deployed with FTP Deploy Action" src="https://img.shields.io/badge/GraphQL--brightgreen?style=flat&logo=GraphQL">](https://www.php.net)
+[<img alt="Deployed with FTP Deploy Action" src="https://img.shields.io/badge/GraphQL--brightgreen?style=flat&logo=GraphQL">](https://graphql.org)
 
 ## Instalación
 
