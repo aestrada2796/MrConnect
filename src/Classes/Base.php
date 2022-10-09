@@ -4,25 +4,27 @@ namespace MrConnect\Classes;
 
 class Base
 {
-    private string|null $routeBase;
+    protected string|null $routeBase;
+    protected string|null $fullUrl;
+    protected array|string|null $query;
+    protected array $var = [];
 
-    public function __construct()
+    public function __construct($url)
     {
         $this->routeBase = config('mrconnect.api_route');
+        $this->fullUrl = $this->routeBase . $url;
     }
 
     /**
      * @autor Adrian Estrada
-     * @param $url
-     * @param $query
      */
-    public function sendRequest($url, $query, $var = [])
+    protected function sendRequest()
     {
-        if (!session()->has('token')) {
-            $this->login();
+        if (!cache()->has('token')) {
+            return $this->login();
         }
 
-        $token = session('token');
+        $token = cache('token');
 
         if (empty($token)) {
             return ["data" => [
@@ -41,15 +43,19 @@ class Base
         $curl = curl_init();
 
         $time = time();
+
         $body = [
-            "query" => $query,
-            "variables" => json_encode($var)
+            "query" =>
+                $this->query
+            ,
+            "variables" => json_encode($this->var, JSON_PRETTY_PRINT)
         ];
 
-        $signature = hash_hmac('sha256', json_encode($body), $time . $token);
+
+        $signature = hash_hmac('sha256', json_encode($body, JSON_PRETTY_PRINT), $time . $token);
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $this->routeBase . $url,
+            CURLOPT_URL => $this->fullUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -57,7 +63,7 @@ class Base
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($body),
+            CURLOPT_POSTFIELDS => json_encode($body, JSON_PRETTY_PRINT),
             CURLOPT_HTTPHEADER => array(
                 'x-api-time: ' . $time,
                 'x-api-signature: ' . $signature,
@@ -87,7 +93,7 @@ class Base
         $url = $this->routeBase . "/login";
 
         $body = [
-            "query" => Queries::$LOGIN,
+            "query" => Variables::$LOGIN,
             "variables" => [
                 "user" => config('mrconnect.api_user'),
                 "pass" => config('mrconnect.api_pass'),
@@ -103,7 +109,7 @@ class Base
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($body),
+            CURLOPT_POSTFIELDS => json_encode($body, JSON_PRETTY_PRINT),
             CURLOPT_HTTPHEADER => array(
                 'accept:  application/json',
                 'Content-Type: application/json',
@@ -119,14 +125,13 @@ class Base
         if (isset($login["data"])) {
             if (isset($login["data"]["login"])) {
                 if ($login["data"]["login"] != "Incorrect user or password") {
-                    session(["token" => $login["data"]["login"]]);
+                    cache(["token" => $login["data"]["login"]]);
                 } else {
-                    session()->forget('token');
-                    return null;
+                    cache()->forget('token');
+                    return $login;
                 }
             }
         }
-        return $login;
     }
 
     /**
@@ -163,4 +168,5 @@ class Base
 
         return $response ? $error : null;
     }
+
 }
