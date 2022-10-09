@@ -10,7 +10,7 @@ class Query extends Base
     {
         parent::__construct($url);
 
-        $this->query = "query { ";
+        $this->query = "query %s { ";
     }
 
     /**
@@ -29,9 +29,19 @@ class Query extends Base
      * @param $var
      * @return $this
      */
-    public function name($name, $var): static
+    public function name($name, $vars = []): static
     {
-        $this->query = sprintf($this->query, $name . (json_encode($var)));
+        $val = "";
+        $int = 0;
+        foreach ($vars as $key => $item) {
+            $val .= $key . ":" . $item;
+            if ($int != 0) {
+                $val .= ",";
+            }
+            $int++;
+        }
+
+        $this->query = sprintf($this->query, $int > 0 ? ($name . " (" . $val . ") ") : "");
         return $this;
     }
 
@@ -42,6 +52,7 @@ class Query extends Base
     public function send()
     {
         $this->query .= " }";
+        $this->query = sprintf($this->query, "");
         return $this->sendRequest();
     }
 

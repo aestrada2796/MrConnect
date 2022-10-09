@@ -20,7 +20,7 @@ class Base
      * @param $var
      * @return $this
      */
-    public function setVariables($var): static
+    public function variables($var): static
     {
         $this->var = $var;
         return $this;
@@ -61,7 +61,6 @@ class Base
             ,
             "variables" => json_encode($this->var, JSON_PRETTY_PRINT)
         ];
-
 
         $signature = hash_hmac('sha256', json_encode($body, JSON_PRETTY_PRINT), $time . $token);
 

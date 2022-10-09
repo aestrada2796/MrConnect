@@ -20,10 +20,10 @@ composer require aestrada2796/mrconnect
 
 ### Servers
 
-| Entorno    | Servidor                        |
-|------------|---------------------------------|
-| Test       | https://www.test.multirumbo.com |
-| Production | https://www.multirumbo.com      |
+| Entorno    | Servidor                                |
+|------------|-----------------------------------------|
+| Test       | https://api.test.multirumbo.com/graphql |
+| Production | https://api.multirumbo.com/graphql      |
 
 ### Importante
 
@@ -44,6 +44,7 @@ El `API_ROUTE` es solo requerido si esta en entorno de Test
 - topup-card
 - parcel-service
 - clapzi
+- tracking
 
 ### Uso
 
@@ -83,4 +84,23 @@ Query::make("")
         'id: "15e2c1c9-ba99-468e-a008-547d0dc634c8"'
     )
     ->send();
+```
+
+- Se pueden usar tambien variables, pasándolas tipo arreglo a la function `->variables` con formato `['key'=>'value'']`
+  y
+  la utilizamos en la consulta agregando a la función `->name` dos parámetros: el primero es el
+  nombre y el segundo son las variables a usar, en formato `['$key'=>'value!'']` donde `$key` es el nombre de la
+  variable ya declarada iniciada con `$` y `value` es el tipo de dato de la variable terminado en `!`. Dentro de la
+  consulta se usa `$key`
+
+```php
+Query::make("")
+            ->name('prueba', ['$id' => "String!"])
+            ->variables(["id" => "15e2c1c9-ba99-468e-a008-547d0dc634c8"])
+            ->function(
+                'users',
+                'id,name,roles{name}',
+                'id: $id'
+            )
+            ->send();
 ```
